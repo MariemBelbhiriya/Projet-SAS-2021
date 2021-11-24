@@ -22,7 +22,7 @@ int main()
     double Montant[30];
     char tmpCIN[10];
     int nombre = 0; // Nombre de compte
-    int plusCompte; // chhal mn compte andkhlo
+    int plusCompte; 
     int i=0;
     int choix1;
     int choix2;

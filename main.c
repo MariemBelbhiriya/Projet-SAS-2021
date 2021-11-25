@@ -15,28 +15,22 @@ void MenuPrincipal(){
 
 int main()
 {
-
-
-
     char CIN[30][10],Nom[30][50],Prenom[30][50];
     double Montant[30];
     char tmpCIN[10];
     int nombre = 0; // Nombre de compte
-    int plusCompte; 
-    int i=0;
-    int choix1;
-    int choix2;
+    int plusCompte;
+    int j,i=0;
+    int choix1 ,choix2;
     int rech=-1;
     double NM; //Nouveau montant
-    int j;
     double Montant1;
     char CIN1[10];
     char Nom1[50];
     char Prenom1[50];
     int chiffre;
-    int result_;
     char rechCIN[1][10];
-mp:
+    mp:
     system("cls");
     MenuPrincipal();
     printf("donnez votre choix : \n");
@@ -74,30 +68,27 @@ mp:
             printf("Saisir Prenom : \n");
             scanf("%s",Prenom[i]);
             printf("Saisir Montant : \n");
-            scanf("%lf",&Montant[i]);
+            scanf("%lf",&Montant[i]); // lf = long float
+
 
         }
         nombre=nombre+plusCompte;
         system("pause");
         goto mp;
-
-
-
-
         break;
 
     case 3:
        if(nombre == 0)
         {
-            printf("Cree un compte svp ...\n");
-            system("pause");
-            goto mp;
-            break;
+           printf("Cree un compte svp ...\n");
+           system("pause");
+           goto mp;
+           break;
         }
-        system("cls");
-        printf("\t \t \t \t Operations \n");
-        printf("Choisir votre operations : \n 1: Depot \n2: Retrait \n");
-        scanf("%d",&choix2);
+           system("cls");
+           printf("\t \t \t \t Operations \n");
+           printf("Choisir votre operations : \n 1: Depot \n2: Retrait \n");
+           scanf("%d",&choix2);
 
         switch(choix2)
         {
@@ -108,7 +99,7 @@ mp:
             scanf("%s",tmpCIN);
             for(i=0; i<nombre; i++)
             {
-                if(strcmp(tmpCIN,CIN[i])==0)  //strcmp==> Comparaison
+                if(strcmp(tmpCIN,CIN[i])==0)  //strcmp ==> Comparaison
                 {
                     rech=i;// i est l'emplacement actuel de CIN rechercher:
                     break;
@@ -125,12 +116,12 @@ mp:
 
                 Montant[rech] = Montant[rech] + NM; // Montant=Montant+NM
             }
-            printf("Nouveau Solde %lf \n",Montant[rech]);
+                printf("Nouveau Solde %lf \n",Montant[rech]);
 
 
-            system("pause");
-            goto mp;
-            break;
+                system("pause");
+                goto mp;
+                break;
 
         case 2:
             if(nombre == 0)
@@ -166,15 +157,14 @@ mp:
                 }
                 else
                 {
-                    Montant[rech] = Montant[rech] - NM;
-                }// Montant=Montant+NM
+                    Montant[rech] = Montant[rech] - NM; // Montant=Montant+NM
+                }
             }
             printf("Nouveau Solde %lf \n",Montant[rech]);
 
             system("pause");
             goto mp;
             break;
-
         }
 
         system("pause");
@@ -214,6 +204,7 @@ mp:
                     {
 
                         Montant1=Montant[j];
+
                         Montant[j]=Montant[i];
                         Montant[i]=Montant1;
 
@@ -236,8 +227,6 @@ mp:
             {
                 printf("\n %lf %s %s %s \n", Montant[i],CIN[i],Nom[i],Prenom[i]);
             }
-
-
             system("pause");
             goto mp;
             break;
@@ -252,6 +241,7 @@ mp:
                     {
 
                         Montant1=Montant[j];
+
                         Montant[j]=Montant[i];
                         Montant[i]=Montant1;
 
@@ -386,6 +376,54 @@ mp:
         }
         system("cls");
         printf("\t \t \t \t Fidelisation \n");
+
+          if(nombre == 0)
+        {
+            printf("Cree un compte svp ...\n");
+            system("pause");
+            goto mp;
+            break;
+        }
+        system("cls");
+        printf("\t \t \t \t Fidelisation \n");
+
+       printf("Les comptes ayant les 3 premiers montants supérieurs\n");
+            for (i=0; i<nombre; i++)
+            {
+                for(j=i+1; j<nombre; j++)
+                {
+                    if(Montant[i]<Montant[j])
+                    {
+
+                        Montant1=Montant[j];
+                        Montant[j]=Montant[i];
+                        Montant[i]=Montant1;
+
+                        strcpy(CIN1,CIN[j]);
+                        strcpy(CIN[j],CIN[i]);
+                        strcpy(CIN[i],CIN1);
+
+                        strcpy(Nom1,Nom[j]);
+                        strcpy(Nom[j],Nom[i]);
+                        strcpy(Nom[i],Nom1);
+
+                        strcpy(Prenom1,Prenom[j]);
+                        strcpy(Prenom[j],Prenom[i]);
+                        strcpy(Prenom[i],Prenom1);
+
+                    }
+                }
+            }
+            for (i=0; i<3; i++){ //Affichage les comptes ayant les 3 premiers montants supérieurs
+                printf("\n %lf %s %s %s \n%", Montant[i],CIN[i],Nom[i],Prenom[i]);
+            }
+
+            printf("\n Les nouveaux soldes + 1.3 pourcent de la Fidelisation \n");
+            for (i=0; i<3; i++){
+                Montant[i]=Montant[i]+(Montant[i]*0.013) ;
+                printf("\n %lf %s %s %s \n%", Montant[i],CIN[i],Nom[i],Prenom[i]);
+            }
+
 
         system("pause");
         goto mp;
